@@ -27,6 +27,23 @@ const FlowSide = ({ setCollapsed, collapsed }: IProps) => {
   const { handleDragStart } = useHandleDrag();
   const { t } = useTranslate('flow');
 
+  const allowedNames = [
+    'Retrieval',
+    'Generate',
+    'Answer',
+    'Categorize',
+    'Message',
+    'RewriteQuestion',
+    'KeywordExtract',
+    'Switch',
+    'Concentrator',
+    'Template',
+    'Iteration',
+    'Note'
+  ];
+
+  const filteredMenuList = componentMenuList.filter(item => allowedNames.includes(item.name));
+
   return (
     <Sider
       collapsible
@@ -36,7 +53,7 @@ const FlowSide = ({ setCollapsed, collapsed }: IProps) => {
       onCollapse={(value) => setCollapsed(value)}
     >
       <Flex vertical gap={10} className={styles.siderContent}>
-        {componentMenuList.map((x) => {
+        {filteredMenuList.map((x) => {
           return (
             <React.Fragment key={x.name}>
               {x.name === Operator.Note && (

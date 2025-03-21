@@ -287,6 +287,8 @@ const UserSettingModel = () => {
     [showApiKeyModal, showLlmAddingModal, ModalMap],
   );
 
+  const FilteredFactoryList = factoryList.filter(item => item.name === 'Ollama' || item.name === 'VLLM');
+
   const items: CollapseProps['items'] = [
     {
       key: '1',
@@ -322,7 +324,7 @@ const UserSettingModel = () => {
             xl: 4,
             xxl: 8,
           }}
-          dataSource={factoryList}
+          dataSource={FilteredFactoryList}
           renderItem={(item) => (
             <List.Item>
               <Card

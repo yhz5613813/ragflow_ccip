@@ -54,14 +54,14 @@ export default {
       nicknamePlaceholder: '请输入名称',
       register: '创建账户',
       continue: '继续',
-      title: '开始构建您的智能助手',
+      title: '开始构建您的参谋助手',
       description:
         '免费注册以探索顶级 RAG 技术。 创建知识库和人工智能来增强您的业务',
       review: '来自 500 多条评论',
     },
     header: {
       knowledgeBase: '知识库',
-      chat: '聊天',
+      chat: '智能助理',
       register: '注册',
       signin: '登录',
       home: '首页',
