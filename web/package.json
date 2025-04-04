@@ -75,6 +75,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.454.0",
     "mammoth": "^1.7.2",
+    "mermaid": "^11.6.0",
     "openai-speech-stream-player": "^1.0.8",
     "rc-tween-one": "^3.0.6",
     "react-copy-to-clipboard": "^5.1.0",

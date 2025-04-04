@@ -23,6 +23,7 @@ import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for
 import { preprocessLaTeX, replaceThinkToSection } from '@/utils/chat';
 import { replaceTextByOldReg } from '../utils';
 
+import Mermaid from '@/components/mermaid'; // 使用写好的 Mermaid 组件
 import { pipe } from 'lodash/fp';
 import styles from './index.less';
 
@@ -203,6 +204,9 @@ const MarkdownContent = ({
           code(props: any) {
             const { children, className, node, ...rest } = props;
             const match = /language-(\w+)/.exec(className || '');
+            if (match?.[1] === 'mermaid') {
+              return <Mermaid chart={String(children).trim()} />;
+            }
             return match ? (
               <SyntaxHighlighter {...rest} PreTag="div" language={match[1]}>
                 {String(children).replace(/\n$/, '')}
