@@ -5,7 +5,7 @@ import { getExtension } from '@/utils/document-util';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Flex, Popover, Space } from 'antd';
 import DOMPurify from 'dompurify';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react'; // 引入 useState
 import Markdown from 'react-markdown';
 import reactStringReplace from 'react-string-replace';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -25,6 +25,7 @@ import { replaceTextByOldReg } from '../utils';
 
 import Mermaid from '@/components/mermaid'; // 使用写好的 Mermaid 组件
 import { pipe } from 'lodash/fp';
+import mermaid from 'mermaid'; // 确保 mermaid 被导入
 import styles from './index.less';
 
 const reg = /(~{2}\d+={2})/g;
@@ -205,7 +206,40 @@ const MarkdownContent = ({
             const { children, className, node, ...rest } = props;
             const match = /language-(\w+)/.exec(className || '');
             if (match?.[1] === 'mermaid') {
-              return <Mermaid chart={String(children).trim()} />;
+              const chartText = String(children).trim();
+              // 使用 useState 来管理 Mermaid 组件的渲染
+              const [mermaidElement, setMermaidElement] =
+                useState<JSX.Element | null>(null);
+
+              useEffect(() => {
+                mermaid
+                  .parse(chartText, { suppressErrors: true })
+                  .then((isValid) => {
+                    if (isValid === false) {
+                      setMermaidElement(
+                        <div className={styles.mermaidError}>
+                          {chartText}
+                          <br />
+                          <font color="#FF0000">
+                            mermaid代码生成出错，请重新生成
+                          </font>
+                        </div>,
+                      );
+                    } else {
+                      setMermaidElement(<Mermaid chart={chartText} />);
+                    }
+                  })
+                  .catch((error) => {
+                    console.error('Error during Mermaid parse:', error);
+                    setMermaidElement(
+                      <div className={styles.mermaidError}>
+                        Error validating Mermaid code.
+                      </div>,
+                    );
+                  });
+              }, [chartText]);
+
+              return mermaidElement; // 返回 state 中的 Mermaid 元素
             }
             return match ? (
               <SyntaxHighlighter {...rest} PreTag="div" language={match[1]}>

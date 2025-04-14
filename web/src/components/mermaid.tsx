@@ -5,6 +5,7 @@ mermaid.initialize({
   startOnLoad: false,
   theme: 'default',
   securityLevel: 'loose',
+
   flowchart: {
     // useMaxWidth: true, // 自动宽度限制
     htmlLabels: true, // 允许HTML标签
@@ -39,9 +40,6 @@ export default class Mermaid extends React.Component<MermaidProps> {
         // 每次渲染时生成新的唯一 ID
         const uniqueId = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
 
-        //   mermaid.initialize({
-        //     fontSize: 28, // 设置 fontSize
-        // });
         const { svg } = await mermaid.render(uniqueId, this.props.chart);
         this.containerRef.current.innerHTML = svg;
       } catch (error) {
