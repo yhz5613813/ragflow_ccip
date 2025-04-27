@@ -79,7 +79,7 @@ def chat_solo(dialog, messages, stream=True):
         for ans in chat_mdl.chat_streamly(prompt_config.get("system", ""), msg, dialog.llm_setting):
             answer = ans
             delta_ans = ans[len(last_ans):]
-            if num_tokens_from_string(delta_ans) < 16:
+            if num_tokens_from_string(delta_ans) < 2:
                 continue
             last_ans = answer
             yield {"answer": answer, "reference": {}, "audio_binary": tts(tts_mdl, delta_ans), "prompt": "", "created_at": time.time()}
@@ -333,7 +333,7 @@ def chat(dialog, messages, stream=True, **kwargs):
                 ans = re.sub(r"<think>.*</think>", "", ans, flags=re.DOTALL)
             answer = ans
             delta_ans = ans[len(last_ans):]
-            if num_tokens_from_string(delta_ans) < 16:
+            if num_tokens_from_string(delta_ans) < 2:
                 continue
             last_ans = answer
             yield {"answer": thought+answer, "reference": {}, "audio_binary": tts(tts_mdl, delta_ans)}
