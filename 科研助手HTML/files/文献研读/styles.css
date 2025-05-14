@@ -747,12 +747,13 @@
   top:409px;
   width:253px;
   height:48px;
-  display:flex;
+  display:none;
   font-family:'Arial Negreta', 'Arial Normal', 'Arial', sans-serif;
   font-weight:700;
   font-style:normal;
   font-size:20px;
   color:#555555;
+
 }
 #u196 .text {
   position:absolute;
@@ -1071,6 +1072,7 @@
   font-style:normal;
   font-size:20px;
   color:#02A7F0;
+
 }
 #u204 {
   border-width:0px;
